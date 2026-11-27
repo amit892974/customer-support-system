@@ -1,4 +1,5 @@
-
+const fs = require("fs");
+const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
@@ -87,9 +88,34 @@ app.use((req, res) => {
     });
 });
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+async function initializeDatabase() {
+    try {
+        console.log("Initializing database...");
+
+        const schemaPath = path.join(
+            __dirname,
+            "database",
+            "schema.sql"
+        );
+
+        const schema = fs.readFileSync(schemaPath, "utf8");
+        
+        await pool.query(schema);
+
+        console.log("Database initialized successfully!");
+    } catch (error) {
+        console.error("Database initialization failed:", error);
+        process.exit(1);
+    }
+}
+
 // Start server only when this file is executed directly
 if (require.main === module) {
     const PORT = process.env.PORT || 5000;
+    await initializeDatabase();
 
     app.listen(PORT, () => {
         console.log(`Server running at http://localhost:${PORT}`);
