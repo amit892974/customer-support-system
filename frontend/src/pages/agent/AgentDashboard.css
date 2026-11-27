@@ -1,0 +1,110 @@
+
+.agent-success {
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 7px;
+    background: #dcfce7;
+    color: #166534;
+}
+
+.agent-ticket-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.agent-ticket-card {
+    padding: 20px;
+    border: 1px solid #e5e7eb;
+    border-radius: 9px;
+}
+
+.agent-ticket-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.agent-ticket-heading h3 {
+    margin: 0 0 10px;
+}
+
+.agent-ticket-heading p {
+    margin: 5px 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.agent-ticket-actions,
+.agent-note-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 18px;
+    max-width: 500px;
+}
+
+.agent-ticket-actions select,
+.agent-note-form textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.agent-note-form textarea {
+    resize: vertical;
+}
+
+.agent-note-form button,
+.notes-toggle {
+    align-self: flex-start;
+    padding: 10px 16px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.agent-note-form button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.notes-toggle {
+    margin-top: 15px;
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.internal-notes {
+    margin-top: 15px;
+    padding: 15px;
+    background: #f9fafb;
+    border-radius: 7px;
+}
+
+.internal-note {
+    padding: 12px;
+    margin-top: 10px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+}
+
+.internal-note p {
+    margin: 0 0 8px;
+}
+
+.internal-note small {
+    color: #6b7280;
+}
+
+@media (max-width: 600px) {
+    .agent-ticket-heading {
+        flex-direction: column;
+    }
+}
