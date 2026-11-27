@@ -1,3 +1,4 @@
+
 const fs = require("fs");
 const path = require("path");
 const express = require("express");
@@ -19,8 +20,29 @@ const refundRoutes = require("./routes/refundRoutes");
 
 const app = express();
 
+// CORS configuration
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://customer-support-system-two.vercel.app",
+    ...(process.env.FRONTEND_URL || "")
+        .split(",")
+        .map(origin => origin.trim())
+        .filter(Boolean)
+];
+
 app.use(cors({
-    origin: process.env.FRONTEND_URL
+    origin: (origin, callback) => {
+        // Allow requests without an Origin header (e.g. Postman)
+        if (!origin || allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+
+        console.warn("CORS blocked origin:", origin);
+        return callback(null, false);
+    },
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    optionsSuccessStatus: 204
 }));
 
 app.use(express.json({ limit: "10kb" }));
@@ -85,8 +107,6 @@ app.use((req, res) => {
     });
 });
 
-
-
 async function initializeDatabase() {
     try {
         console.log("Initializing database...");
@@ -98,7 +118,7 @@ async function initializeDatabase() {
         );
 
         const schema = fs.readFileSync(schemaPath, "utf8");
-        
+
         await pool.query(schema);
 
         console.log("Database initialized successfully!");
