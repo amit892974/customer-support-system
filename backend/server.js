@@ -85,8 +85,7 @@ app.use((req, res) => {
     });
 });
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+
 
 async function initializeDatabase() {
     try {
@@ -112,11 +111,21 @@ async function initializeDatabase() {
 // Start server only when this file is executed directly
 if (require.main === module) {
     const PORT = process.env.PORT || 5000;
-    await initializeDatabase();
 
-    app.listen(PORT, () => {
-        console.log(`Server running at http://localhost:${PORT}`);
-    });
+    async function startServer() {
+        try {
+            await initializeDatabase();
+
+            app.listen(PORT, () => {
+                console.log(`Server running on port ${PORT}`);
+            });
+        } catch (error) {
+            console.error("Server startup failed:", error);
+            process.exit(1);
+        }
+    }
+
+    startServer();
 }
 
 // Export Express app for automated testing
