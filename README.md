@@ -2,6 +2,14 @@
 
 A full-stack customer support platform that enables customers to manage orders, raise support tickets, communicate with an AI-powered support assistant, and request refunds. Support agents and administrators can manage tickets, review escalations, and approve or reject refund requests.
 
+## Live Application
+
+**Frontend:** [AI Customer Support System](https://customer-support-system-two.vercel.app/login)
+
+**Backend:** Deployed on Render.
+
+The frontend is hosted on Vercel, while the backend REST API is deployed separately on Render.
+
 ## Features
 
 ### Customer
@@ -41,6 +49,8 @@ A full-stack customer support platform that enables customers to manage orders, 
 | HTTP Client | Axios |
 | Styling | CSS |
 | Testing | Jest, Supertest |
+| Frontend Hosting | Vercel |
+| Backend Hosting | Render |
 
 ## Project Structure
 
@@ -88,12 +98,12 @@ Make sure the following software is installed:
 - PostgreSQL
 - Git
 
-## Installation and Setup
+## Local Installation and Setup
 
 ### 1. Clone the Repository
 
 ```bash
-git clone git@github.com:amit892974/customer-support-system.git
+git clone https://github.com/amit892974/customer-support-system.git
 cd customer-support-system
 ```
 
@@ -138,7 +148,7 @@ It also creates indexes to improve database query performance.
 
 ### 4. Configure the Backend
 
-If you are already inside the backend directory, install the dependencies:
+Install backend dependencies:
 
 ```bash
 npm install
@@ -166,9 +176,11 @@ Start the backend development server:
 npm run dev
 ```
 
-Backend URL:
+Backend local URL:
 
-`http://localhost:5000`
+```text
+http://localhost:5000
+```
 
 ### 5. Configure the Frontend
 
@@ -177,14 +189,77 @@ Open another terminal and navigate to the frontend directory:
 ```bash
 cd frontend
 npm install
+```
+
+Create a `.env` file inside the frontend directory:
+
+```env
+VITE_API_URL=http://localhost:5000
+```
+
+Start the frontend development server:
+
+```bash
 npm run dev
 ```
 
-Frontend URL:
+Frontend local URL:
 
-`http://localhost:5173`
+```text
+http://localhost:5173
+```
 
-Keep both frontend and backend servers running while using the application.
+Keep both frontend and backend servers running while using the local application.
+
+## Deployment
+
+The application is deployed using separate frontend and backend hosting services.
+
+### Frontend Deployment — Vercel
+
+The React frontend is hosted on Vercel.
+
+Live URL:
+
+https://customer-support-system-two.vercel.app/login
+
+Frontend environment variable:
+
+```env
+VITE_API_URL=https://your-render-backend-url
+```
+
+Replace the value with the actual deployed Render backend URL.
+
+### Backend Deployment — Render
+
+The Node.js and Express backend is deployed as a Render Web Service.
+
+Recommended configuration:
+
+| Setting | Value |
+|---|---|
+| Root Directory | `backend` |
+| Build Command | `npm install` |
+| Start Command | `npm start` |
+
+Configure the required environment variables in the Render dashboard, including:
+
+- `PORT` (if required by the hosting configuration)
+- `DB_HOST`
+- `DB_PORT`
+- `DB_NAME`
+- `DB_USER`
+- `DB_PASSWORD`
+- `JWT_SECRET`
+
+Ensure that the deployed PostgreSQL database is accessible from the Render backend.
+
+### Production Configuration
+
+The frontend uses the `VITE_API_URL` environment variable to communicate with the deployed backend.
+
+The production frontend must use the Render backend URL rather than `localhost`.
 
 ## Running Tests
 
@@ -279,7 +354,7 @@ Additional project documentation:
 
 - Never commit `.env` files or real credentials.
 - Refunds are simulated for demonstration purposes.
-- Configure PostgreSQL before starting the backend.
+- Configure PostgreSQL before starting the backend locally.
 - Both frontend and backend must be running for local application use.
 - The backend is the final authority for refund eligibility and processing decisions.
 - The database schema is provided in `backend/database/schema.sql` for fresh installations.
@@ -289,8 +364,8 @@ Additional project documentation:
 - Integrate a live Large Language Model (LLM).
 - Add real payment gateway integration.
 - Expand frontend and end-to-end automated testing.
-- Add Docker-based deployment and CI/CD pipelines.
 - Improve monitoring, logging and production deployment.
+- Add real-time communication between customers and support agents.
 
 ## Author
 
