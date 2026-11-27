@@ -93,7 +93,7 @@ Make sure the following software is installed:
 ### 1. Clone the Repository
 
 ```bash
-git clone YOUR_REPOSITORY_URL
+git clone git@github.com:amit892974/customer-support-system.git
 cd customer-support-system
 ```
 
